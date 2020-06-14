@@ -1,13 +1,17 @@
+[lib]
+proc-macro = true
+
 [package]
-name = "ctrs"
+name = "inline_proc_macros"
 version = "0.1.0"
 authors = ["Nika Layzell <nika@thelayzells.com>"]
 edition = "2018"
-
-[lib]
-proc-macro = true
 
 [dependencies]
 tempdir = "0.3"
 base64 = "0.10"
 watt = { git = "https://github.com/mystor/watt", branch = "wasm_string" }
+
+proc-macro2 = "1.0.*"
+quote = "1.0.*"
+syn = { version = "1.0.*", features = ["full"] }

@@ -52,7 +52,7 @@ fn main ()
     let ref target_dir = env::var("OUT_DIR")?;
     let mut cargo_cmd = Command::new(env::var("CARGO")?);
     cargo_cmd.args(&[
-        "build", "-vv", "--release", "--offline",
+        "build", "-vv", "--release", "--locked",
         "--manifest-path", &[manifest_dir, "/wasm/Cargo.toml"].concat(),
         "-p", "placeholder",
         "-p", "proc-macro2",

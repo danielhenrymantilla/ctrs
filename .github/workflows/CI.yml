@@ -31,8 +31,11 @@ jobs:
           override: true
 
       - name: Instal LLVM
-        run: choco install -y llvm
         if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          iwr -useb get.scoop.sh | iex
+          scoop install llvm --global
 
       - name: Clone repo
         uses: actions/checkout@v2

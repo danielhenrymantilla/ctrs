@@ -5,7 +5,7 @@
 #![deny(rust_2018_idioms)]
 #![deny(missing_docs)]
 
-#[allow(rust_2018_idioms)] extern crate proc_macro; // For retro-compat
+#[allow(unused_extern_crates)] extern crate proc_macro; // For retro-compat
 use ::proc_macro::TokenStream;
 use ::std::ops::Not as _;
 

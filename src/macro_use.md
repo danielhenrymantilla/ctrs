@@ -3,6 +3,16 @@ into inlined `macro_rules!` definitions.
 
 # Usage
 
+  - **`Cargo.toml`**
+
+    ```toml
+    [dependencies]
+    inline_proc_macros = { git = "https://github.com/danielhenrymantilla/rust-inline_proc_macros" }
+    ```
+
+      - Currently a `git`-only dependency to prevent it from being used in
+        production.
+
   - **`build.rs`**
 
     ```rust

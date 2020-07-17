@@ -4,7 +4,7 @@ path = "src/_lib.rs"
 
 [package]
 name = "inline_proc_macros"
-version = "0.1.0"
+version = "0.0.1"
 authors = [
     "Nika Layzell <nika@thelayzells.com>",
     "Daniel Henry-Mantilla <daniel.henry.mantilla@gmail.com>",
@@ -19,7 +19,9 @@ quote = "1.0.*"
 syn = { version = "1.0.*", features = ["full"] }
 
 [dependencies.watt]
+package = "watt-non-static-runtime"
 git = "https://github.com/danielhenrymantilla/watt"
+version = "0.4.0"
 branch = "non-static-wasm-runtime"
 
 [features]
@@ -30,3 +32,6 @@ nightly-docs = ["docs"]
 
 # Trace what the internals are doing, very helpful for debugging or understanding what is going on
 trace-macros = []
+
+[package.metadata.docs.rs]
+all-features = true

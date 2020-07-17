@@ -30,17 +30,18 @@ jobs:
           toolchain: ${{ matrix.rust }}
           override: true
 
-      - name: Instal LLVM
-        if: runner.os == 'Windows'
-        shell: powershell
-        run: |
-          iwr -useb get.scoop.sh | iex
-          scoop install llvm --global
+      # - name: Install LLVM
+      #   if: runner.os == 'Windows'
+      #   shell: powershell
+      #   run: |
+      #     iwr -useb get.scoop.sh | iex
+      #     scoop install llvm --global
 
       - name: Clone repo
         uses: actions/checkout@v2
 
-      - uses: actions-rs/cargo@v1
+      - name: Cargo check
+        uses: actions-rs/cargo@v1
         with:
           command: check
           args: --features trace-macros
@@ -63,7 +64,8 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v2
 
-      - uses: actions-rs/cargo@v1
+      - name: Cargo check
+        uses: actions-rs/cargo@v1
         with:
           command: check
           args: |

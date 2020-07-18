@@ -95,4 +95,4 @@ compile-time the exact macro call:
 inline_proc_macros = { ..., features = ["trace-macros"] }
 ```
 
-[1]: https://docs.rs/inline_proc_macros/0.0.1/inline_proc_macros/attr.macro_use.html
+[1]: https://danielhenrymantilla.github.io/rust-inline_proc_macros/0.0.1-dev/inline_proc_macros/attr.macro_use.html

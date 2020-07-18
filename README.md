@@ -21,6 +21,46 @@ the LICENSE).
       - This crate follows the MSRV policy, _i.e._, that breaking MSRV will be
         considered a breaking change.
 
+  - **Recommended Rust Version**: `>= 1.45.0`
+
+      - Otherwise you will not be able to use procedural macros in expression
+        position.
+
+        <details><summary>Workaround</summary>
+
+        Instead of having the macro expand to `some expression ...`, have it
+        expand to:
+
+        ```rust
+        macro_rules! expansion { () => (
+            some expression ...
+        )}
+        ```
+
+        And change its name to something like `__some_macro_name__`.
+
+        Then, wrap the generated macro `__some_macro_name__!`, as follows:
+
+        ```rust
+        #[inline_proc_macros::macro_use]
+        mod some_module_name {}
+
+        macro_rules! some_macro_name {
+            (@as_item $it:item) => ($it);
+            (
+                $($input:tt)*
+            ) => ({
+                some_macro_name! {
+                    @as_item
+                    __some_macro_name__! { $($input)* }
+                }
+                expansion!()
+            });
+        }
+        ```
+
+        </details>
+
 ## Examples
 
   - See the [`downstream/` directory](https://github.com/danielhenrymantilla/rust-inline_proc_macros/tree/proc-macro-approach/downstream).

@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `inline_proc_macros` crate."><meta name="keywords" content="rust, rustlang, rust-lang, inline_proc_macros"><title>inline_proc_macros - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../inline_proc_macros/index.html'><div class='logo-container'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate inline_proc_macros</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all inline_proc_macros's items</p></a><p class='location'></p><script>window.sidebarCurrent = {name: 'inline_proc_macros', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/inline_proc_macros/_lib.rs.html#1-59' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>inline_proc_macros</a></span></h1><div class='docblock'><blockquote>
+<p>Procedural macros without an extra crate.</p>
+</blockquote>
+<h1 id="inline_proc_macros" class="section-header"><a href="#inline_proc_macros"><code>::inline_proc_macros</code></a></h1>
+<p>Hack to implement inline procedural macros, forked off
+<a href="https://github.com/mystor/ctrs">https://github.com/mystor/ctrs</a>
+(credits for the idea and the first draft implementation go to them, <em>c.f.</em>,
+the LICENSE).</p>
+<ul>
+<li>Note: this only works for function-like procedural macros, not for derive
+or attribute macros. That being said, the <a href="https://docs.rs/macro_rules_attribute"><code>#[macro_rules_attribute]</code></a> crate lets you solve that part.</li>
+</ul>
+<h2 id="requirements" class="section-header"><a href="#requirements">Requirements</a></h2>
+<ul>
+<li>
+<p>The <code>wasm32-unknown-unknown</code> target must be installed (or <code>rustup</code> must be
+available, so as to automatically install it when missing).</p>
+</li>
+<li>
+<p><strong>Minimum Supported Rust Version</strong>: <code>1.45.0</code> (may be lower, haven't tested
+how far it goes yet)</p>
+<ul>
+<li>This follows the MSRV policy, <em>i.e.</em>, that breaking MSRV will be
+considered a breaking change.</li>
+</ul>
+</li>
+</ul>
+<h2 id="examples" class="section-header"><a href="#examples">Examples</a></h2>
+<ul>
+<li>
+<p>See the <a href="https://github.com/danielhenrymantilla/rust-inline_proc_macros/tree/proc-macro-approach/downstream"><code>downstream/</code> directory</a>.</p>
+</li>
+<li>
+<p>Or see the documentation of <a href="https://docs.rs/inline_proc_macros/0.0.1/inline_proc_macros/attr.macro_use.html"><code>#[inline_proc_macros::macro_use]</code></a>.</p>
+</li>
+</ul>
+<h2 id="notes" class="section-header"><a href="#notes">Notes</a></h2>
+<ul>
+<li>
+<p>This is currently at a slightly experimental stage; moreover, it relies
+on procedural macros being able to tinker with the filesystem like
+<code>build.rs</code> scripts do, which is not a feature Rust guarantees (more info
+about this in the remarks for the documentation of the
+<a href="https://docs.rs/inline_proc_macros/0.0.1/inline_proc_macros/attr.macro_use.html"><code>#[inline_proc_macros::macro_use]</code></a> attribute).</p>
+<p>It is thus ill-advised to use this crate in an environment where the
+compilation needs to be robust and long-term future-proof.</p>
+</li>
+<li>
+<p>That being said, this crate can be great to quickly prototype 
+procedural macros, so as to better evaluate how useful they can be for your
+crate, before fully committing to <a href="https://users.rust-lang.org/t/proc-macros-using-third-party-crate/42465/4">the cumbersome but more reliable
+double-crate pattern</a>.</p>
+</li>
+</ul>
+<h2 id="debugging" class="section-header"><a href="#debugging">Debugging</a></h2>
+<p>An optional compilation feature, &quot;trace-macros&quot; can be used to print at
+compile-time the exact macro call:</p>
+<pre><code class="language-toml">[dependencies]
+inlince_proc_macros = { version = &quot;...&quot;, features = [&quot;trace-macros&quot;] }
+</code></pre>
+</div><h2 id='attributes' class='section-header'><a href="#attributes">Attribute Macros</a></h2>
+<table><tr class='module-item'><td><a class="attr" href="attr.macro_use.html" title='inline_proc_macros::macro_use attr'>macro_use</a></td><td class='docblock-short'><p>Annotate a <code>mod</code> declaration to compile its <code>proc_macro</code> source code
+into inlined <code>macro_rules!</code> definitions.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "inline_proc_macros";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

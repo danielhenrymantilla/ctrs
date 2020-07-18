@@ -1,0 +1,1 @@
+initSidebarItems({"attr":[["macro_use","Annotate a `mod` declaration to compile its `proc_macro` source code into inlined `macro_rules!` definitions."]]});

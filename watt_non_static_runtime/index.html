@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `watt_non_static_runtime` crate."><meta name="keywords" content="rust, rustlang, rust-lang, watt_non_static_runtime"><title>watt_non_static_runtime - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../watt_non_static_runtime/index.html'><div class='logo-container'><img src='../rust-logo.png' alt='logo'></div></a><p class='location'>Crate watt_non_static_runtime</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all watt_non_static_runtime's items</p></a><div class="block items"><ul><li><a href="#structs">Structs</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'watt_non_static_runtime', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/watt_non_static_runtime/lib.rs.html#1-371' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>watt_non_static_runtime</a></span></h1><div class='docblock'><p><a href="https://github.com/dtolnay/watt"><img src="https://img.shields.io/badge/github-8da0cb?style=for-the-badge&amp;labelColor=555555&amp;logo=github" alt="github" /></a> <a href="https://crates.io/crates/watt"><img src="https://img.shields.io/badge/crates.io-fc8d62?style=for-the-badge&amp;labelColor=555555&amp;logo=rust" alt="crates-io" /></a> <a href="https://docs.rs/watt"><img src="https://img.shields.io/badge/docs.rs-66c2a5?style=for-the-badge&amp;labelColor=555555&amp;logoColor=white&amp;logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDUxMiA1MTIiPjxwYXRoIGZpbGw9IiNmNWY1ZjUiIGQ9Ik00ODguNiAyNTAuMkwzOTIgMjE0VjEwNS41YzAtMTUtOS4zLTI4LjQtMjMuNC0zMy43bC0xMDAtMzcuNWMtOC4xLTMuMS0xNy4xLTMuMS0yNS4zIDBsLTEwMCAzNy41Yy0xNC4xIDUuMy0yMy40IDE4LjctMjMuNCAzMy43VjIxNGwtOTYuNiAzNi4yQzkuMyAyNTUuNSAwIDI2OC45IDAgMjgzLjlWMzk0YzAgMTMuNiA3LjcgMjYuMSAxOS45IDMyLjJsMTAwIDUwYzEwLjEgNS4xIDIyLjEgNS4xIDMyLjIgMGwxMDMuOS01MiAxMDMuOSA1MmMxMC4xIDUuMSAyMi4xIDUuMSAzMi4yIDBsMTAwLTUwYzEyLjItNi4xIDE5LjktMTguNiAxOS45LTMyLjJWMjgzLjljMC0xNS05LjMtMjguNC0yMy40LTMzLjd6TTM1OCAyMTQuOGwtODUgMzEuOXYtNjguMmw4NS0zN3Y3My4zek0xNTQgMTA0LjFsMTAyLTM4LjIgMTAyIDM4LjJ2LjZsLTEwMiA0MS40LTEwMi00MS40di0uNnptODQgMjkxLjFsLTg1IDQyLjV2LTc5LjFsODUtMzguOHY3NS40em0wLTExMmwtMTAyIDQxLjQtMTAyLTQxLjR2LS42bDEwMi0zOC4yIDEwMiAzOC4ydi42em0yNDAgMTEybC04NSA0Mi41di03OS4xbDg1LTM4Ljh2NzUuNHptMC0xMTJsLTEwMiA0MS40LTEwMi00MS40di0uNmwxMDItMzguMiAxMDIgMzguMnYuNnoiPjwvcGF0aD48L3N2Zz4K" alt="docs-rs" /></a></p>
+<br>
+<h1 id="watt" class="section-header"><a href="#watt">Watt</a></h1>
+<p>Watt is a runtime for executing Rust procedural macros compiled as
+WebAssembly.</p>
+<br>
+<h1 id="rationale" class="section-header"><a href="#rationale">Rationale</a></h1>
+<ul>
+<li>
+<p><strong>Faster compilation.</strong> By compiling macros ahead-of-time to Wasm, we
+save all downstream users of the macro from having to compile the macro
+logic or its dependencies themselves.</p>
+<p>Instead, what they compile is a small self-contained Wasm runtime (~3
+seconds, shared by all macros) and a tiny proc macro shim for each macro
+crate to hand off Wasm bytecode into the Watt runtime (~0.3 seconds per
+proc-macro crate you depend on). This is much less than the 20+ seconds it
+can take to compile complex procedural macros and their dependencies.</p>
+</li>
+<li>
+<p><strong>Isolation.</strong> The Watt runtime is 100% safe code with zero
+dependencies. While running in this environment, a macro's <em>only possible
+interaction with the world</em> is limited to consuming tokens and producing
+tokens. This is true regardless of how much unsafe code the macro itself
+might contain! Modulo bugs in the Rust compiler or standard library, it is
+impossible for a macro to do anything other than shuffle tokens around.</p>
+</li>
+<li>
+<p><strong>Determinism.</strong> From a build system point of view, a macro backed by
+Wasm has the advantage that it can be treated as a purely deterministic
+function from input to output. There is no possibility of implicit
+dependencies, such as via the filesystem, which aren't visible to or taken
+into account by the build system.</p>
+</li>
+</ul>
+<br>
+<h1 id="getting-started" class="section-header"><a href="#getting-started">Getting started</a></h1>
+<p>Start by implementing and testing your proc macro as you normally would,
+using whatever dependencies you want (syn, quote, etc). You will end up with
+something that looks like:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
+
+<span class="attribute">#[<span class="ident">proc_macro</span>]</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">the_macro</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+    <span class="comment">/* ... */</span>
+}</pre></div>
+<p><code>#[proc_macro_derive]</code> and <code>#[proc_macro_attribute]</code> are supported as well;
+everything is analogous to what will be shown here for <code>#[proc_macro]</code>.</p>
+<p>When your macro is ready, there are just a few changes we need to make to
+the signature and the Cargo.toml. In your lib.rs, change each of your macro
+entry points to a no_mangle extern &quot;C&quot; function, and change the TokenStream
+in the signature from proc_macro to proc_macro2.</p>
+<p>It will look like:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">proc_macro2</span>::<span class="ident">TokenStream</span>;
+
+<span class="attribute">#[<span class="ident">no_mangle</span>]</span>
+<span class="kw">pub</span> <span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">the_macro</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+    <span class="comment">/* same as before */</span>
+}</pre></div>
+<p>Now in your macro's Cargo.toml which used to contain this:</p>
+<pre><code class="language-toml">[lib]
+proc-macro = true
+</code></pre>
+<p>change it instead to say:</p>
+<pre><code class="language-toml">[lib]
+crate-type = [&quot;cdylib&quot;]
+
+[patch.crates-io]
+proc-macro2 = { git = &quot;https://github.com/dtolnay/watt&quot; }
+</code></pre>
+<p>This crate will be the binary that we compile to Wasm. Compile it by
+running:</p>
+<pre><code class="language-console">$ cargo build --release --target wasm32-unknown-unknown
+</code></pre>
+<p>Next we need to make a small proc-macro shim crate to hand off the compiled
+Wasm bytes into the Watt runtime. It's fine to give this the same crate name
+as the previous crate, since the other one won't be getting published to
+crates.io. In a new Cargo.toml, put:</p>
+<pre><code class="language-toml">[lib]
+proc-macro = true
+
+[dependencies]
+watt = &quot;0.4&quot;
+</code></pre>
+<p>And in its src/lib.rs, define real proc macros corresponding to each of the
+ones previously defined as no_mangle extern &quot;C&quot; functions in the other
+crate:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">proc_macro</span>::<span class="ident">TokenStream</span>;
+<span class="kw">use</span> <span class="ident">watt</span>::<span class="ident">WasmMacro</span>;
+
+<span class="kw">static</span> <span class="ident">MACRO</span>: <span class="ident">WasmMacro</span> <span class="op">=</span> <span class="ident">WasmMacro</span>::<span class="ident">new</span>(<span class="ident">WASM</span>);
+<span class="kw">static</span> <span class="ident">WASM</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;my_macros.wasm&quot;</span>);
+
+<span class="attribute">#[<span class="ident">proc_macro</span>]</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">the_macro</span>(<span class="ident">input</span>: <span class="ident">TokenStream</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TokenStream</span> {
+    <span class="ident">MACRO</span>.<span class="ident">proc_macro</span>(<span class="string">&quot;the_macro&quot;</span>, <span class="ident">input</span>)
+}</pre></div>
+<p>Finally, copy the compiled Wasm binary from
+target/wasm32-unknown-unknown/release/my_macros.wasm under your
+implementation crate, to the src directory of your shim crate, and it's
+ready to publish!</p>
+<br>
+<h1 id="remaining-work" class="section-header"><a href="#remaining-work">Remaining work</a></h1>
+<ul>
+<li>
+<p><strong>Performance.</strong> Watt compiles pretty fast, but so far I have not put
+any effort toward optimizing the runtime. That means macro expansion can
+potentially take longer than with a natively compiled proc macro.</p>
+<p>Note that the performance overhead of the Wasm environment is partially
+offset by the fact that our proc macros are compiled to Wasm in release
+mode, so downstream <code>cargo build</code> will be running a release-mode macro
+when it would have been running debug-mode for a traditional proc macro.</p>
+<p>A neat approach would be to provide some kind of <code>cargo install watt-runtime</code> which installs an optimized Wasm runtime locally, which the
+Watt crate can detect and hand off code to if available. That way we avoid
+running things in a debug-mode runtime altogether. The experimental
+beginnings of this can be found under the <a href="https://github.com/dtolnay/watt/tree/master/jit">jit/</a> directory.</p>
+</li>
+<li>
+<p><strong>Tooling.</strong> The getting started section shows there are a lot of
+steps to building a macro for Watt, and a pretty hacky patching in of
+proc-macro2. Ideally this would all be more straightforward, including
+easy tooling for doing reproducible builds of the Wasm artifact for
+confirming that it was indeed compiled from the publicly available
+sources.</p>
+</li>
+<li>
+<p><strong>RFCs.</strong> The advantages of fast compile time, isolation, and
+determinism may make it worthwhile to build first-class support for Wasm
+proc macros into rustc and Cargo. The toolchain could ship its own high
+performance Wasm runtime, which is an even better outcome than Watt
+because that runtime can be heavily optimized and consumers of macros
+don't need to compile it.</p>
+</li>
+</ul>
+<br>
+<h1 id="acknowledgements" class="section-header"><a href="#acknowledgements">Acknowledgements</a></h1>
+<p>The current underlying Wasm runtime is a fork of the <a href="https://github.com/yblein/rust-wasm">Rust-WASM</a> project by
+Yoann Blein and Hugo Guiroux, a simple and spec-compliant WebAssembly
+interpreter.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr class='module-item'><td><a class="struct" href="struct.WasmMacro.html" title='watt_non_static_runtime::WasmMacro struct'>WasmMacro</a></td><td class='docblock-short'><p>An instantiation of a WebAssembly module used to invoke procedural macro
+methods on the wasm module.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../";window.currentCrate = "watt_non_static_runtime";</script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

@@ -16,10 +16,9 @@ the LICENSE).
   - The `wasm32-unknown-unknown` target must be installed (or `rustup` must be
     available, so as to automatically install it when missing).
 
-  - **Minimum Supported Rust Version**: `1.45.0` (may be lower, haven't tested
-    how far it goes yet)
+  - **Minimum Supported Rust Version**: `1.42.0`
 
-      - This follows the MSRV policy, _i.e._, that breaking MSRV will be
+      - This crate follows the MSRV policy, _i.e._, that breaking MSRV will be
         considered a breaking change.
 
 ## Examples
@@ -53,7 +52,7 @@ compile-time the exact macro call:
 
 ```toml
 [dependencies]
-inlince_proc_macros = { version = "...", features = ["trace-macros"] }
+inline_proc_macros = { ..., features = ["trace-macros"] }
 ```
 
 [1]: https://docs.rs/inline_proc_macros/0.0.1/inline_proc_macros/attr.macro_use.html

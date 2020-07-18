@@ -88,7 +88,7 @@ into inlined `macro_rules!` definitions.
 
   - **`src/some_module_name.rs`**
 
-    ```rust,ignore
+    ```rust
     use ::proc_macro2::TokenStream;
 
     /// Some docstring    (optional)
@@ -123,7 +123,7 @@ The only external crates available from within the `proc_macro` code are:
 
 ### Reversing the `char`s of a string literal at compile-time
 
-```rust,ignore
+```rust
 //! src/proc_macros.rs
 
 use ::proc_macro2::TokenStream;
@@ -142,7 +142,7 @@ fn reverse (input: TokenStream)
 }
 ```
 
-```rust,ignore
+```rust
 //! src/main.rs
 
 #[inline_proc_macros::macro_use]
@@ -167,7 +167,7 @@ No more:
 
 Instead, you can do:
 
-```rust,ignore
+```rust
 //! src/proc_macros.rs
 
 use ::proc_macro2::TokenStream;
@@ -229,7 +229,7 @@ fn c_str (input: TokenStream)
     ```
     </details>
 
-```rust,ignore
+```rust
 //! src/main.rs
 
 use ::std::ffi::CStr;

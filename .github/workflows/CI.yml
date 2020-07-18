@@ -100,3 +100,32 @@ jobs:
         with:
           command: run
           args: --manifest-path downstream/Cargo.toml
+
+  # Deploy to Github pages #
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-18.04
+    needs:
+      - build-and-test
+    steps:
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: default
+          override: true
+          toolchain: nightly
+
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - name: Build docs
+        uses: actions-rs/cargo@v1
+        with:
+          command: doc
+          args: --all-features
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/doc

@@ -118,11 +118,17 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v2
 
+      - name: Pre-process for docs
+        run: bash ./scripts/pre_doc.sh
+
       - name: Build docs
         uses: actions-rs/cargo@v1
         with:
           command: doc
           args: --all-features
+
+      - name: Post-process for docs
+        run: bash ./scripts/post_doc.sh
 
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3

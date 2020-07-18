@@ -17,11 +17,47 @@ or attribute macros. That being said, the <a href="https://docs.rs/macro_rules_a
 available, so as to automatically install it when missing).</p>
 </li>
 <li>
-<p><strong>Minimum Supported Rust Version</strong>: <code>1.45.0</code> (may be lower, haven't tested
-how far it goes yet)</p>
+<p><strong>Minimum Supported Rust Version</strong>: <code>1.42.0</code></p>
 <ul>
-<li>This follows the MSRV policy, <em>i.e.</em>, that breaking MSRV will be
+<li>This crate follows the MSRV policy, <em>i.e.</em>, that breaking MSRV will be
 considered a breaking change.</li>
+</ul>
+</li>
+<li>
+<p><strong>Recommended Rust Version</strong>: <code>&gt;= 1.45.0</code></p>
+<ul>
+<li>
+<p>Otherwise you will not be able to use procedural macros in expression
+position.</p>
+<details><summary>Workaround</summary>
+<p>Instead of having the macro expand to <code>some expression ...</code>, have it
+expand to:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">expansion</span> { () <span class="op">=</span><span class="op">&gt;</span> (
+    <span class="ident">some</span> <span class="ident">expression</span> ...
+)}</pre></div>
+<p>And change its name to something like <code>__some_macro_name__</code>.</p>
+<p>Then, wrap the generated macro <code>__some_macro_name__!</code>, as follows:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="attribute">#[<span class="ident">inline_proc_macros</span>::<span class="ident">macro_use</span>]</span>
+<span class="kw">mod</span> <span class="ident">some_module_name</span> {}
+
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">some_macro_name</span> {
+    (@<span class="ident">as_item</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">it</span>:<span class="ident">item</span>) <span class="op">=</span><span class="op">&gt;</span> (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">it</span>);
+    (
+        $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">input</span>:<span class="ident">tt</span>)<span class="op">*</span>
+    ) <span class="op">=</span><span class="op">&gt;</span> ({
+        <span class="macro">some_macro_name</span><span class="macro">!</span> {
+            @<span class="ident">as_item</span>
+            <span class="macro">__some_macro_name__</span><span class="macro">!</span> { $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">input</span>)<span class="op">*</span> }
+        }
+        <span class="macro">expansion</span><span class="macro">!</span>()
+    });
+}</pre></div>
+</details>
+</li>
 </ul>
 </li>
 </ul>
@@ -56,7 +92,7 @@ double-crate pattern</a>.</p>
 <p>An optional compilation feature, &quot;trace-macros&quot; can be used to print at
 compile-time the exact macro call:</p>
 <pre><code class="language-toml">[dependencies]
-inlince_proc_macros = { version = &quot;...&quot;, features = [&quot;trace-macros&quot;] }
+inline_proc_macros = { ..., features = [&quot;trace-macros&quot;] }
 </code></pre>
 </div><h2 id='attributes' class='section-header'><a href="#attributes">Attribute Macros</a></h2>
 <table><tr class='module-item'><td><a class="attr" href="attr.macro_use.html" title='inline_proc_macros::macro_use attr'>macro_use</a></td><td class='docblock-short'><p>Annotate a <code>mod</code> declaration to compile its <code>proc_macro</code> source code

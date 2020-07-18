@@ -16,11 +16,50 @@ the LICENSE).
   - The `wasm32-unknown-unknown` target must be installed (or `rustup` must be
     available, so as to automatically install it when missing).
 
-  - **Minimum Supported Rust Version**: `1.45.0` (may be lower, haven't tested
-    how far it goes yet)
+  - **Minimum Supported Rust Version**: `1.42.0`
 
-      - This follows the MSRV policy, _i.e._, that breaking MSRV will be
+      - This crate follows the MSRV policy, _i.e._, that breaking MSRV will be
         considered a breaking change.
+
+  - **Recommended Rust Version**: `>= 1.45.0`
+
+      - Otherwise you will not be able to use procedural macros in expression
+        position.
+
+        <details><summary>Workaround</summary>
+
+        Instead of having the macro expand to `some expression ...`, have it
+        expand to:
+
+        ```rust
+        macro_rules! expansion { () => (
+            some expression ...
+        )}
+        ```
+
+        And change its name to something like `__some_macro_name__`.
+
+        Then, wrap the generated macro `__some_macro_name__!`, as follows:
+
+        ```rust
+        #[inline_proc_macros::macro_use]
+        mod some_module_name {}
+
+        macro_rules! some_macro_name {
+            (@as_item $it:item) => ($it);
+            (
+                $($input:tt)*
+            ) => ({
+                some_macro_name! {
+                    @as_item
+                    __some_macro_name__! { $($input)* }
+                }
+                expansion!()
+            });
+        }
+        ```
+
+        </details>
 
 ## Examples
 
@@ -53,7 +92,7 @@ compile-time the exact macro call:
 
 ```toml
 [dependencies]
-inlince_proc_macros = { version = "...", features = ["trace-macros"] }
+inline_proc_macros = { ..., features = ["trace-macros"] }
 ```
 
 [1]: https://docs.rs/inline_proc_macros/0.0.1/inline_proc_macros/attr.macro_use.html

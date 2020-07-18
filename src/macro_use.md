@@ -6,8 +6,9 @@ into inlined `macro_rules!` definitions.
   - **`Cargo.toml`**
 
     ```toml
-    [dependencies]
-    inline_proc_macros = { git = "https://github.com/danielhenrymantilla/rust-inline_proc_macros" }
+    [dependencies.inline_proc_macros]
+    git = "https://github.com/danielhenrymantilla/rust-inline_proc_macros",
+    rev = "${COMMIT_HASH}"  # pin-point commit since it's currently in dev stage
     ```
 
       - Currently a `git`-only dependency to prevent it from being used in
@@ -87,7 +88,7 @@ into inlined `macro_rules!` definitions.
 
   - **`src/some_module_name.rs`**
 
-    ```rust,ignore
+    ```rust
     use ::proc_macro2::TokenStream;
 
     /// Some docstring    (optional)
@@ -122,7 +123,7 @@ The only external crates available from within the `proc_macro` code are:
 
 ### Reversing the `char`s of a string literal at compile-time
 
-```rust,ignore
+```rust
 //! src/proc_macros.rs
 
 use ::proc_macro2::TokenStream;
@@ -141,7 +142,7 @@ fn reverse (input: TokenStream)
 }
 ```
 
-```rust,ignore
+```rust
 //! src/main.rs
 
 #[inline_proc_macros::macro_use]
@@ -166,7 +167,7 @@ No more:
 
 Instead, you can do:
 
-```rust,ignore
+```rust
 //! src/proc_macros.rs
 
 use ::proc_macro2::TokenStream;
@@ -182,13 +183,13 @@ fn c_str (input: TokenStream)
 {
     let input: LitStr = parse_macro_input!(input);
     let ref mut bytes: Vec<u8> = input.value().into();
-    match bytes.iter().position(|&&b| b == b'\0') {
-        | Some(idx) if idx + 1 == string.len() => {
-            // the string literal already has a terminating null byte
-        },
+    match bytes.iter().position(|&b| b == b'\0') {
         | None => {
-            // No null byte at all
+            // No null byte at all, append one.
             bytes.push(b'\0');
+        },
+        | Some(idx) if idx + 1 == bytes.len() => {
+            /* The string literal already has a terminating null byte. */
         },
         | Some(bad_idx) => {
             // Inner null byte!
@@ -198,15 +199,12 @@ fn c_str (input: TokenStream)
             ).to_compile_error().into();
         },
     }
-    let checked_byte_str = LitByteStr::new(
-        bytes,
-        input.span(),
-    );
     // Now `bytes` is null-terminated and has no inner nulls.
+    let checked_byte_str = LitByteStr::new(bytes, input.span());
     ::quote::quote!(
         unsafe {
             ::std::ffi::CStr::from_bytes_with_nul_unchecked(
-                #checked_byte_str
+                #checked_byte_str // b"...\0"
             )
         }
     ).into()
@@ -231,7 +229,7 @@ fn c_str (input: TokenStream)
     ```
     </details>
 
-```rust,ignore
+```rust
 //! src/main.rs
 
 use ::std::ffi::CStr;
@@ -239,12 +237,36 @@ use ::std::ffi::CStr;
 #[inline_proc_macros::macro_use]
 mod proc_macros {}
 
+mod libc {
+    pub
+    use ::std::os::raw::{c_char, c_int};
+
+    extern "C" {
+        pub
+        fn puts (_: *const c_char)
+          -> c_int
+        ;
+    }
+}
+
 fn main ()
 {
     let hello: &'static CStr = c_str!("Hello, World");
     // let err: &'static CStr = c_str!("Hell\0, World!"); /* Compile error */
     unsafe {
-        ::libc::puts(hello.as_ptr());
+        libc::puts(hello.as_ptr());
     }
 }
 ```
+
+  - <details><summary>Compile-time error message if inner null</summary>
+
+    ```text
+    error: Error, found inner null byte at index 4
+      --> src/main.rs:23:37
+       |
+    23 |     let err: &'static CStr = c_str!("Hell\0, World!"); /* Compile error */
+       |                                     ^^^^^^^^^^^^^^^^
+    ```
+
+    </details>
